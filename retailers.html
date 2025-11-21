@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Join the Point of Trust Network – HRD Antwerp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{--hrd-blue:#0070b8;}
+    *{box-sizing:border-box;}
+    html{ scroll-behavior:smooth; } /* ✅ smooth scroll (modern browsers) */
+
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:#0f172a;
+      color:#e2e8f0;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    .container{width:min(1100px,92%);margin:0 auto;}
+    .hrd-topbar{
+      background:#0f172a;
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      padding:.75rem 0;
+      position:sticky;
+      top:0;
+      z-index:10;
+      animation:fadeInDown .8s ease both;
+      backdrop-filter: blur(6px);
+    }
+    .flex-between{display:flex;justify-content:space-between;align-items:center;}
+    .logo-text{color:#fff;font-weight:600;margin:0;}
+
+    .hero{
+      padding:3.3rem 0 2.6rem;
+      background:radial-gradient(circle at top,rgba(0,112,184,.25),#0f172a 60%);
+      animation:fadeInUp 1s ease both;
+    }
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;}
+    .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;color:rgba(226,232,240,.6);margin-bottom:.4rem;}
+    .hero-title{font-size:clamp(2rem,2.6vw,2.5rem);margin-bottom:.4rem;color:#fff;}
+    .hero-text{color:rgba(226,232,240,.78);margin-bottom:1.1rem;}
+
+    .video-wrapper{
+      position:relative;
+      padding-top:56.25%;
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(226,232,240,.09);
+      box-shadow:0 20px 55px rgba(0,0,0,.28);
+      animation:fadeInUp .8s ease .3s both;
+      border:1px solid rgba(255,255,255,.04);
+    }
+    .video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+    .btn{
+      display:inline-block;
+      padding:.65rem 1.3rem;
+      border-radius:999px;
+      font-weight:600;
+      letter-spacing:.01em;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      transition:transform .25s ease,box-shadow .25s ease, opacity .25s ease;
+    }
+    .btn.primary{
+      background:var(--hrd-blue);
+      color:#fff;
+      box-shadow:0 8px 30px rgba(0,112,184,.38);
+    }
+    .btn.primary:hover{
+      transform:translateY(-2px) scale(1.03);
+      opacity:.98;
+    }
+
+    .section{
+      padding:3.2rem 0;
+      animation:fadeInUp 1s ease both;
+    }
+    .section-title{
+      text-align:center;
+      font-size:1.35rem;
+      margin-bottom:1rem;
+      color:#fff;
+    }
+
+    .icon-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      gap:1.3rem;
+      margin-top:1rem;
+    }
+    .icon-card{
+      background:rgba(3,7,18,.30);
+      border:1px solid rgba(255,255,255,.04);
+      border-radius:18px;
+      padding:1.3rem 1.2rem;
+      transition:transform .25s ease, box-shadow .25s ease;
+      text-align:center;
+      box-shadow:0 10px 28px rgba(0,0,0,.18);
+    }
+    .icon-card h4{margin:.2rem 0 .4rem;color:#fff;}
+    .icon-card p{color:rgba(226,232,240,.75);}
+    .icon-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 16px 40px rgba(0,0,0,.32);
+    }
+
+    /* ✅ BIGGER + PROPER FEATURED PARTNERS */
+    .logo-card-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:2rem;
+      justify-items:center;
+      padding:1.8rem 0 .5rem;
+      margin-top:.5rem;
+    }
+    .logo-card{
+      background:rgba(3,7,18,0.40);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:22px;
+      padding:1.4rem;
+      width:100%;
+      max-width:360px;   /* bigger cards */
+      text-align:center;
+      text-decoration:none;
+      color:#fff;
+      transition:transform .25s ease, box-shadow .25s ease;
+      box-shadow:0 18px 45px rgba(0,0,0,0.34);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:22px;
+      background:radial-gradient(circle at top, rgba(0,112,184,.15), transparent 60%);
+      opacity:.6;
+      pointer-events:none;
+    }
+    .logo-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 25px 60px rgba(0,0,0,.5);
+    }
+
+    .logo-placeholder{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      width:100%;
+      height:180px;          /* natural tall card area */
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.02);
+    }
+
+    .logo-placeholder img{
+      width:100%;
+      height:100%;
+      object-fit:cover;      /* fills naturally */
+      border-radius:18px;
+      transition:transform .35s ease, opacity .35s ease;
+      opacity:.97;
+    }
+    .logo-card:hover img{
+      transform:scale(1.05);
+      opacity:1;
+    }
+
+    /* Form */
+    .hrd-form{
+      background:rgba(3,7,18,.30);
+      border:1px solid rgba(255,255,255,.04);
+      border-radius:18px;
+      padding:1.6rem;
+      display:grid;
+      gap:1rem;
+      box-shadow:0 14px 45px rgba(0,0,0,.28);
+      margin-top:1.2rem;
+    }
+    .form-row{display:flex;flex-direction:column;gap:.35rem;}
+    label{font-weight:600;color:#fff;}
+
+    input,select{
+      background:rgba(15,23,42,.65);
+      border:1px solid rgba(203,213,225,.14);
+      border-radius:12px;
+      padding:.55rem .7rem;
+      color:#fff;
+      transition:border .3s ease, background .3s ease;
+      font-size:.95rem;
+    }
+    input:focus,select:focus{
+      border-color:rgba(0,112,184,.6);
+      outline:none;
+      background:rgba(15,23,42,.9);
+    }
+
+    .checkbox-inline{
+      display:flex;
+      gap:.5rem;
+      color:rgba(226,232,240,.85);
+      font-size:.95rem;
+      align-items:flex-start;
+    }
+
+    .footer{
+      border-top:1px solid rgba(255,255,255,.04);
+      padding:1.6rem 0;
+      text-align:center;
+    }
+    .footer a{color:rgba(0,177,255,1);text-decoration:none;}
+
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(25px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-25px);}to{opacity:1;transform:translateY(0);}}
+
+    @media(max-width:940px){
+      .hero-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:540px){
+      .hrd-form{padding:1.2rem;}
+      .btn.primary{width:100%;text-align:center;}
+      .logo-card{max-width:100%;}
+      .logo-placeholder{height:160px;}
+    }
+  </style>
+</head>
+<body>
+  <header class="hrd-topbar">
+    <div class="container flex-between">
+      <h1 class="logo-text">HRD Antwerp</h1>
+      <p style="color:rgba(255,255,255,.5);margin:0;">For Retailers</p>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Point of Trust Program</p>
+        <h2 class="hero-title">Join the network consumers trust.</h2>
+        <p class="hero-text">Be seen as a verified, certification-aligned jeweller. Build credibility through HRD Antwerp.</p>
+        <a href="#retailer-form" class="btn primary" id="applyNowBtn">
+          Apply to become a Point of Trust retailer
+        </a>
+      </div>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/fYO_KA-LDeg" title="A Quiet Kind of Trust" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow" style="text-align:center;">
+      <h3 class="section-title">About the campaign</h3>
+      <p style="color:rgba(226,232,240,.8);max-width:780px;margin:0 auto;">
+        This global campaign promotes certification, consumer confidence, and trust in jewellery buying — powered by HRD Antwerp.
+        By joining the Point of Trust, your brand aligns with this global message of reliability.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h3 class="section-title">Why join the PoT program</h3>
+      <div class="icon-grid">
+        <div class="icon-card">
+          <h4>Visibility</h4>
+          <p>Be featured as a trusted retailer for consumers seeking certified jewellery.</p>
+        </div>
+        <div class="icon-card">
+          <h4>Credibility</h4>
+          <p>Gain recognition by associating with HRD Antwerp and the A Quiet Kind of Trust campaign.</p>
+        </div>
+        <div class="icon-card">
+          <h4>Consumer Confidence</h4>
+          <p>Reassure buyers that your store works exclusively with certified diamonds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h3 class="section-title">Featured Retail Partners</h3>
+      <p style="color:rgba(226,232,240,.65);text-align:center;margin-bottom:.5rem;">
+        Discover certified jewellers you can trust.
+      </p>
+
+      <div class="logo-card-grid">
+        <a href="https://www.instagram.com/khannajewellerskj?igsh=MW81eWQ2Y3VzdWljNQ==" target="_blank" class="logo-card">
+          <div class="logo-placeholder">
+            <img src="client-logos/Khanna Jewellers.png" alt="Khanna Jewellers">
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/bishanjewellery?igsh=dHVvYnJtaTVhenhs" target="_blank" class="logo-card">
+          <div class="logo-placeholder">
+            <img src="client-logos/Bishan.png" alt="Bishan">
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/multanijewellersofficial?igsh=Z3ZzaXNrYmtxdW40" target="_blank" class="logo-card">
+          <div class="logo-placeholder">
+            <img src="client-logos/Multani Jewellers.png" alt="Multani Jewellers">
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/rkjewellers_southex2?igsh=amplbmdwOW1jZW9j" target="_blank" class="logo-card">
+          <div class="logo-placeholder">
+            <img src="client-logos/RK Jewellers.png" alt="RK Jewellers">
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="retailer-form">
+    <div class="container narrow">
+      <h3 class="section-title">Apply now</h3>
+      <p style="color:rgba(226,232,240,.7);text-align:center;margin-bottom:.8rem;">
+        Submit your details and our team will contact you shortly.
+      </p>
+
+      <form class="hrd-form">
+        <div class="form-row"><label>Company Name</label><input type="text" required></div>
+        <div class="form-row"><label>Contact Person Name</label><input type="text" required></div>
+        <div class="form-row"><label>Email Address</label><input type="email" required></div>
+        <div class="form-row"><label>Mobile Number</label><input type="tel" required></div>
+        <div class="form-row"><label>City / Country</label><input type="text" required></div>
+
+        <div class="form-row">
+          <label>Store Type</label>
+          <select required>
+            <option value="">Select...</option>
+            <option>Retail</option>
+            <option>Manufacturer</option>
+            <option>Exporter</option>
+            <option>Designer</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Are you already associated with HRD Antwerp?</label>
+          <select required>
+            <option value="">Select...</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+
+        <div class="form-row checkbox-inline">
+          <input type="checkbox" required>
+          <span>I agree to be contacted by HRD Antwerp regarding the Point of Trust Program</span>
+        </div>
+
+        <button type="submit" class="btn primary">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p style="color:rgba(226,232,240,.55);">© HRD Antwerp – A Quiet Kind of Trust</p>
+    <a href="consumer-landing.html">Looking to buy jewellery? Visit our guide.</a>
+  </footer>
+
+  <!-- ✅ JS fallback + offset fix for sticky header -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        const yOffset = -80; // sticky header offset
+        const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

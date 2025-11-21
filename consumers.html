@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Buy Jewellery You Can Trust – HRD Antwerp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --hrd-blue:#0070b8; }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:#0f172a;
+      color:#e2e8f0;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    .container{width:min(1100px,92%);margin:0 auto;}
+    .flex-between{display:flex;justify-content:space-between;align-items:center;}
+    .hrd-topbar{
+      background:#0f172a;
+      border-bottom:1px solid rgba(255,255,255,.04);
+      padding:.75rem 0;
+      position:sticky;
+      top:0;
+      z-index:10;
+      animation:fadeInDown 0.8s ease both;
+    }
+    .logo-text{color:#fff;font-weight:600;margin:0;}
+    .hero{
+      padding:3.2rem 0 2.5rem;
+      background:radial-gradient(circle at top,rgba(0,112,184,.22),#0f172a 58%);
+      animation:fadeInUp 1s ease both;
+    }
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;}
+    .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;color:rgba(226,232,240,.6);margin-bottom:.4rem;}
+    .hero-title{font-size:clamp(2rem,2.8vw,2.6rem);margin-bottom:.4rem;}
+    .hero-text{color:rgba(226,232,240,.7);margin-bottom:1.2rem;}
+    .video-wrapper{
+      position:relative;
+      padding-top:56.25%;
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(226,232,240,.09);
+      box-shadow:0 20px 55px rgba(0,0,0,.28);
+      animation:fadeInUp .8s ease .4s both;
+    }
+    .video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+    .btn{
+      display:inline-block;
+      padding:.6rem 1.3rem;
+      border-radius:999px;
+      font-weight:500;
+      border:none;
+      cursor:pointer;
+      transition:transform .25s ease,box-shadow .25s ease;
+      text-decoration:none;
+    }
+    .btn.primary{background:var(--hrd-blue);color:#fff;box-shadow:0 8px 30px rgba(0,112,184,.35);}
+    .btn.primary:hover{transform:translateY(-2px) scale(1.03);}
+    .section{padding:3rem 0;animation:fadeInUp 1s ease both;}
+    .section-title{text-align:center;font-size:1.25rem;margin-bottom:1rem;}
+    .icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.2rem;}
+    .icon-card{
+      background:rgba(3,7,18,.25);
+      border:1px solid rgba(255,255,255,.03);
+      border-radius:14px;
+      padding:1.1rem;
+      transition:transform .25s ease;
+      animation:fadeInUp .8s ease both;
+    }
+    .icon-card:hover{transform:translateY(-4px);}
+    .narrow{max-width:650px;margin:0 auto;}
+    .hrd-form{
+      background:rgba(3,7,18,.25);
+      border:1px solid rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:1.4rem;
+      display:grid;
+      gap:1rem;
+    }
+    .form-row{display:flex;flex-direction:column;gap:.35rem;}
+    label{font-weight:500;}
+    input,select{
+      background:rgba(15,23,42,.55);
+      border:1px solid rgba(203,213,225,.12);
+      border-radius:10px;
+      padding:.45rem .6rem;
+      color:#fff;
+      transition:border .3s ease;
+    }
+    input:focus,select:focus{border-color:rgba(0,112,184,.5);outline:none;}
+    .checkbox-inline{display:flex;gap:.4rem;color:rgba(226,232,240,.7);font-size:.9rem;}
+    .footer{border-top:1px solid rgba(255,255,255,.03);padding:1.4rem 0;text-align:center;}
+    .footer a{color:rgba(0,177,255,1);text-decoration:none;}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(25px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-25px);}to{opacity:1;transform:translateY(0);}}
+    @media(max-width:940px){.hero-grid{grid-template-columns:1fr;}}
+    @media(max-width:540px){.hrd-form{padding:1.15rem;}.btn.primary{width:100%;text-align:center;}}
+  </style>
+</head>
+<body>
+  <header class="hrd-topbar">
+    <div class="container flex-between">
+      <h1 class="logo-text">HRD Antwerp</h1>
+      <p style="color:rgba(255,255,255,.5);margin:0;">For Consumers</p>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Consumer Awareness</p>
+        <h2 class="hero-title">A Quiet Kind of Trust</h2>
+        <p class="hero-text">Certification protects you from misrepresentation and ensures transparency in what you buy.</p>
+        <!-- <a href="#form" class="btn primary">Download the Buying Guide</a> -->
+         <a href="jewellery buying guide india vers.pdf" class="btn primary" target="_blank">
+  Download the Buying Guide
+</a>
+      </div>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/fYO_KA-LDeg" title="A Quiet Kind of Trust" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="why">
+    <div class="container">
+      <h3 class="section-title">Why certification matters</h3>
+      <div class="icon-grid">
+        <div class="icon-card"><h4>Transparency</h4><p>You know exactly what you are buying.</p></div>
+        <div class="icon-card"><h4>Protection</h4><p>Reduces the risk of overpaying or incorrect details.</p></div>
+        <div class="icon-card"><h4>Peace of mind</h4><p>Certified retailers follow trusted standards.</p></div>
+      </div>
+      <p style="margin-top:1.1rem;color:rgba(226,232,240,.6);text-align:center;">Subscribe to receive guides, free seminar invites, and updates on safe jewellery buying.</p>
+    </div>
+  </section>
+
+  <section class="section" id="trusted-retailers">
+    <div class="container narrow" style="text-align:center;">
+      <h3 class="section-title">Trust in retailers</h3>
+      <p>Choose jewellers who work with HRD Antwerp – they’re part of a global network committed to certification and quality.</p>
+      <a href="retailers.html" target="_blank" rel="noopener" class="btn" style="background:rgba(226,232,240,.1);color:#fff;">Find a trusted jeweller</a>
+    </div>
+  </section>
+
+  <section class="section" id="form">
+    <div class="container narrow">
+      <h3 class="section-title">Stay informed</h3>
+      <form class="hrd-form">
+        <div class="form-row"><label>Full Name</label><input type="text" required></div>
+        <div class="form-row"><label>Email Address</label><input type="email" required></div>
+        <div class="form-row"><label>Country / City</label><input type="text" required></div>
+        <div class="form-row"><label>Age Group</label>
+          <select required>
+            <option value="">Select...</option><option>18–25</option><option>26–35</option><option>36–45</option><option>46+</option>
+          </select>
+        </div>
+        <div class="form-row checkbox-inline"><input type="checkbox" required><span>I agree to receive updates from HRD Antwerp</span></div>
+        <button type="submit" class="btn primary">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p style="color:rgba(226,232,240,.5);">© HRD Antwerp – A Quiet Kind of Trust</p>
+    <a href="retailer-landing.html">Are you a jeweller? Click here to join the network.</a>
+  </footer>
+</body>
+</html>
