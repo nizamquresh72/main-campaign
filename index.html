@@ -12,7 +12,6 @@
       --radius: 16px;
     }
     * { box-sizing: border-box; }
-
     html{ scroll-behavior: smooth; }
 
     body {
@@ -25,8 +24,9 @@
     }
     .container { width: min(1100px, 92%); margin: 0 auto; }
     .flex-between { display: flex; justify-content: space-between; align-items: center; }
+    .narrow{max-width:720px;margin:0 auto;}
 
-    /* ✅ HEADER EXACTLY LIKE RETAILERS PAGE */
+    /* ✅ HEADER EXACTLY LIKE RETAILERS (NO PLAY BUTTON HERE) */
     .hrd-topbar{
       background:rgba(15,23,42,0.9);
       border-bottom:1px solid rgba(255,255,255,0.03);
@@ -48,70 +48,131 @@
       font-size:.9rem;
       color:rgba(255,255,255,.6);
       margin:0;
+      white-space:nowrap;
     }
 
-    /* Hero */
+    /* =========================
+       ✅ HERO (same as retailers)
+       ========================= */
     .hero {
-      padding: 3.5rem 0 2.5rem;
-      background: radial-gradient(circle at top, rgba(0,112,184,0.22), #0f172a 58%);
-      animation: fadeInUp 1s ease both;
-    }
-    .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2rem; align-items: center; }
-
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.7rem;
-      color: rgba(226,232,240,.6);
-      margin-bottom: 0.5rem;
-    }
-    .hero-title {
-      font-size: clamp(2rem, 2.7vw, 2.6rem);
-      color: #fff;
-      margin-bottom: .55rem;
-      animation: fadeInUp 0.8s ease 0.2s both;
-    }
-    .hero-text {
-      color: rgba(226,232,240,.85);
-      margin-bottom: 1.3rem;
-      animation: fadeInUp 0.8s ease 0.3s both;
-    }
-
-    .video-wrapper {
       position: relative;
-      padding-top: 56.25%;
-      border-radius: 18px;
+      min-height: clamp(420px, 62vh, 640px);
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at top, rgba(0,112,184,0.20), rgba(15,23,42,1) 60%),
+        url("hero-bg.jpg") center/cover no-repeat;
+      animation: fadeInUp 1s ease both;
       overflow: hidden;
-      background: rgba(226,232,240,.09);
-      border: 1px solid rgba(226,232,240,.04);
-      box-shadow: 0 22px 65px rgba(0,0,0,.30);
-      animation: fadeInUp 0.8s ease 0.4s both;
+      padding: 4rem 0 4.8rem;
     }
-    .video-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(
+        90deg,
+        rgba(3,7,18,.85) 0%,
+        rgba(3,7,18,.6) 45%,
+        rgba(3,7,18,.25) 70%,
+        rgba(3,7,18,0) 100%
+      );
+      pointer-events:none;
+    }
 
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      padding: 0.65rem 1.25rem;
-      border-radius: 999px;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+    .hero-content{
+      position: relative;
+      z-index: 2;
+      width: min(1100px, 92%);
+      padding: 3.4rem 0;
     }
-    .btn.primary {
-      background: var(--hrd-blue);
-      color: #fff;
-      box-shadow: 0 8px 30px rgba(0,112,184,.38);
+
+    .hero-left{
+      max-width: 620px;
+      animation: fadeInUp .9s ease .15s both;
     }
-    .btn.primary:hover { transform: translateY(-2px) scale(1.03); opacity:.98; }
-    .btn.ghost {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      margin-left:.5rem;
+
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.10em;
+      font-size:.72rem;
+      color:rgba(226,232,240,.65);
+      margin-bottom:.6rem;
     }
-    .btn.ghost:hover { background: rgba(255,255,255,0.15); }
+    .hero-title{
+      font-size:clamp(2.2rem,3.2vw,3rem);
+      color:#fff;
+      margin:0 0 .7rem;
+      line-height:1.15;
+    }
+    .hero-text{
+      color:rgba(226,232,240,.9);
+      font-size:1.06rem;
+      margin:0;
+      max-width:660px;
+    }
+
+    /* ✅ BIG play button on hero (same as retailers) */
+    .hero-play-btn{
+      position:absolute;
+      top:58%;
+      left:62%;
+      transform:translate(-50%,-50%);
+      width:120px;
+      height:120px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.28);
+      backdrop-filter: blur(6px);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      z-index:3;
+      box-shadow:0 12px 45px rgba(0,0,0,.55);
+      transition:transform .2s ease, background .2s ease;
+    }
+    .hero-play-btn:hover{
+      transform:translate(-50%,-50%) scale(1.06);
+      background:rgba(255,255,255,.18);
+    }
+    .hero-play-triangle{
+      width:0;height:0;
+      border-top:18px solid transparent;
+      border-bottom:18px solid transparent;
+      border-left:28px solid #fff;
+      margin-left:6px;
+    }
+
+    /* =========================
+       ✅ MODAL VIDEO POPUP
+       ========================= */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      place-items:center;
+      background:rgba(3,7,18,.8);
+      z-index:999;
+      padding:2rem;
+    }
+    .modal.open{display:grid;}
+    .modal-card{
+      width:min(980px,96%);
+      background:#0b1621;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:16px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 30px 90px rgba(0,0,0,.6);
+    }
+    .modal-close{
+      position:absolute; top:10px; right:12px;
+      background:rgba(0,0,0,.5);
+      border:0; color:#fff; font-size:1.4rem;
+      height:40px; width:40px; border-radius:999px;
+      cursor:pointer; display:grid; place-items:center; z-index:2;
+    }
+    .modal-video{position:relative; padding-top:56.25%; background:#000;}
+    .modal-video iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
 
     /* Sections */
     .section {
@@ -147,41 +208,84 @@
       box-shadow:0 18px 55px rgba(0,0,0,.35);
     }
 
-    /* Form */
+    /* ✅ BEAUTIFUL FORM UPDATE */
     .hrd-form {
-      background: rgba(3,7,18,.35);
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 18px;
-      padding: 1.7rem;
+      background:
+        radial-gradient(1200px circle at top left, rgba(0,112,184,.12), transparent 55%),
+        rgba(3,7,18,.55);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
       display: grid;
-      gap: 1rem;
-      box-shadow:0 14px 45px rgba(0,0,0,.28);
-      margin-top:1rem;
+      gap: 1.05rem;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+      margin-top:1.2rem;
     }
-    .form-row { display: flex; flex-direction: column; gap: .35rem; }
-    label { font-weight: 600; color: #fff; }
+    .form-row { display: flex; flex-direction: column; gap: .45rem; }
+    label {
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .01em;
+      font-size: .98rem;
+    }
 
     input[type="text"], input[type="email"], select {
-      border: 1px solid rgba(203,213,225,.14);
-      background: rgba(15,23,42,.60);
+      border: 1px solid rgba(203,213,225,.18);
+      background: rgba(15,23,42,.75);
       border-radius: 12px;
-      padding: 0.55rem 0.75rem;
-      font-size: 0.95rem;
+      padding: 0.7rem 0.9rem;
+      font-size: 1rem;
       color: #fff;
-      transition: border .3s ease, background .3s ease;
+      transition: border .25s ease, background .25s ease, transform .15s ease;
     }
     input:focus, select:focus {
-      border-color: rgba(0,112,184,.6);
-      background: rgba(15,23,42,.9);
+      border-color: rgba(0,112,184,.85);
+      background: rgba(15,23,42,.95);
       outline: none;
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 3px rgba(0,112,184,.18);
     }
-    .checkbox-group { display: grid; gap: .45rem; margin-top:.3rem; }
+
+    .checkbox-group { display: grid; gap: .55rem; margin-top:.2rem; }
+    .checkbox-group label{
+      font-weight: 500;
+      color: rgba(226,232,240,.9);
+      font-size: .98rem;
+      display:flex;
+      gap:.5rem;
+      align-items:flex-start;
+    }
     .checkbox-inline {
       display: flex;
       align-items: flex-start;
-      gap: .5rem;
-      color: rgba(226,232,240,.8);
-      font-size: .95rem;
+      gap: .6rem;
+      color: rgba(226,232,240,.9);
+      font-size: .98rem;
+      margin-top:.2rem;
+    }
+
+    /* ✅ Submit button blue + nicer */
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 1.25rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+      font-size: 1.05rem;
+    }
+    .btn.primary {
+      background: var(--hrd-blue);
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(0,112,184,.45);
+      width:100%;
+      margin-top:.4rem;
+    }
+    .btn.primary:hover {
+      transform: translateY(-2px);
+      opacity:.98;
     }
 
     /* Footer */
@@ -203,15 +307,40 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 540px) {
-      .hero-actions .btn { width: 100%; text-align: center; margin-bottom: .6rem; margin-left:0; }
-      .hrd-form { padding: 1.2rem; }
+    /* ✅ MOBILE FIXES same as retailers */
+    @media (max-width: 940px){
+      .hero-left{
+        max-width:820px;
+        text-align:center;
+        margin:0 auto;
+      }
+      .hero{ padding-bottom:7rem; }
+      .hero-play-btn{
+        top:auto !important;
+        bottom:18% !important;
+        left:50% !important;
+        transform:translateX(-50%);
+      }
+    }
+
+    @media (max-width: 540px){
+      .hrd-form { padding: 1.4rem 1.2rem; }
+      .hero-play-btn{
+        bottom:12% !important;
+        width:90px !important;
+        height:90px !important;
+      }
+      .hero-play-triangle{
+        border-top:14px solid transparent !important;
+        border-bottom:14px solid transparent !important;
+        border-left:22px solid #fff !important;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- ✅ UPDATED HEADER LIKE RETAILERS PAGE -->
+
+  <!-- ✅ HEADER like retailers, NO play button here -->
   <header class="hrd-topbar">
     <div class="container flex-between">
       <h1 class="logo-text">HRD Antwerp</h1>
@@ -219,19 +348,20 @@
     </div>
   </header>
 
+  <!-- ✅ HERO banner + BIG play button -->
   <section class="hero">
-    <div class="container hero-grid">
-      <div>
+    <button class="hero-play-btn" id="openVideo" aria-label="Play video">
+      <span class="hero-play-triangle"></span>
+    </button>
+
+    <div class="hero-content">
+      <div class="hero-left">
         <p class="eyebrow">Video Campaign</p>
         <h2 class="hero-title">A Quiet Kind of Trust</h2>
-        <p class="hero-text">Every diamond has a story. Certification ensures it’s the right one.</p>
-        <div class="hero-actions">
-          <a href="jewellery buying guide india vers.pdf" class="btn primary" target="_blank">Download Buying Guide</a>
-          <a href="#paths" class="btn ghost">Choose your path</a>
-        </div>
-      </div>
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/fYO_KA-LDeg" title="A Quiet Kind of Trust" frameborder="0" allowfullscreen></iframe>
+        <p class="hero-text">
+          Every diamond has a story. Certification ensures it’s the right one.
+        </p>
+        <!-- ✅ removed Download guide + Choose path buttons -->
       </div>
     </div>
   </section>
@@ -271,6 +401,7 @@
         <div class="form-row"><label>Full Name</label><input type="text" required></div>
         <div class="form-row"><label>Email Address</label><input type="email" required></div>
         <div class="form-row"><label>Country / Region</label><input type="text" required></div>
+
         <div class="form-row">
           <label>I am interested in:</label>
           <div class="checkbox-group">
@@ -279,10 +410,12 @@
             <label><input type="checkbox"> Becoming a PoT retailer</label>
           </div>
         </div>
+
         <div class="form-row checkbox-inline">
           <input type="checkbox" required>
           <span>I agree to receive updates from HRD Antwerp</span>
         </div>
+
         <button type="submit" class="btn primary">Submit</button>
       </form>
     </div>
@@ -298,7 +431,53 @@
     </div>
   </footer>
 
+  <!-- ✅ Video Modal -->
+  <div class="modal" id="videoModal" aria-hidden="true" role="dialog">
+    <div class="modal-card">
+      <button class="modal-close" id="closeVideo" aria-label="Close video">×</button>
+      <div class="modal-video">
+        <iframe
+          id="videoFrame"
+          title="HRD Antwerp Video"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          src=""
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // modal video
+    const modal = document.getElementById('videoModal');
+    const openBtnHero = document.getElementById('openVideo');
+    const closeBtn = document.getElementById('closeVideo');
+    const frame = document.getElementById('videoFrame');
+
+    // ✅ Updated video link to HRD India video
+    const VIDEO_URL = "https://www.youtube.com/embed/oPGICbh8T4A?autoplay=1";
+
+    function openModal(){
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      frame.src = VIDEO_URL;
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      frame.src = "";
+      document.body.style.overflow = "";
+    }
+
+    openBtnHero.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === "Escape" && modal.classList.contains('open')) closeModal();
+    });
+
+    // sticky header offset smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e){
         const target = document.querySelector(this.getAttribute('href'));
