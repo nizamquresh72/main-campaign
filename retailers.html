@@ -128,8 +128,8 @@
        ========================= */
     .hero-play-btn{
       position:absolute;
-      top:55%;
-      left:60%;
+      top:58%;
+      left:62%;
       transform:translate(-50%,-50%);
       width:120px;
       height:120px;
@@ -350,12 +350,8 @@
       }
       .hero-actions{align-items:center;}
 
-      /* create space for play button */
-      .hero{
-        padding-bottom:7rem;
-      }
+      .hero{ padding-bottom:7rem; }
 
-      /* move play button BELOW text */
       .hero-play-btn{
         top:auto !important;
         bottom:18% !important;
@@ -403,10 +399,7 @@
         <p class="hero-text">
           Be seen as a verified, certification-aligned jeweller. Build credibility through HRD Antwerp.
         </p>
-
-        <div class="hero-actions">
-          <!-- CTA removed as per your comment -->
-        </div>
+        <div class="hero-actions"></div>
       </div>
     </div>
   </section>
@@ -518,7 +511,7 @@
       <div class="modal-video">
         <iframe
           id="videoFrame"
-          title="A Quiet Kind of Trust"
+          title="HRD Antwerp Video"
           allow="autoplay; encrypted-media"
           allowfullscreen
           src=""
@@ -533,7 +526,9 @@
     const openBtn = document.getElementById('openVideo');
     const closeBtn = document.getElementById('closeVideo');
     const frame = document.getElementById('videoFrame');
-    const VIDEO_URL = "https://www.youtube.com/watch?v=oPGICbh8T4A";
+
+    // ✅ NEW HRD VIDEO (old one removed)
+    const VIDEO_URL = "https://www.youtube.com/embed/oPGICbh8T4A?autoplay=1";
 
     function openModal(){
       modal.classList.add('open');
