@@ -7,7 +7,7 @@
   <style>
     :root{--hrd-blue:#0070b8;}
     *{box-sizing:border-box;}
-    html{ scroll-behavior:smooth; } /* ✅ smooth scroll (modern browsers) */
+    html{ scroll-behavior:smooth; }
 
     body{
       margin:0;
@@ -42,6 +42,7 @@
     .hero-title{font-size:clamp(2rem,2.6vw,2.5rem);margin-bottom:.4rem;color:#fff;}
     .hero-text{color:rgba(226,232,240,.78);margin-bottom:1.1rem;}
 
+    /* VIDEO + PLAY BUTTON */
     .video-wrapper{
       position:relative;
       padding-top:56.25%;
@@ -54,25 +55,35 @@
     }
     .video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
 
-    .btn{
-      display:inline-block;
-      padding:.65rem 1.3rem;
-      border-radius:999px;
-      font-weight:600;
-      letter-spacing:.01em;
-      text-decoration:none;
-      border:none;
+    .play-btn{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      background:rgba(0,0,0,.25);
       cursor:pointer;
-      transition:transform .25s ease,box-shadow .25s ease, opacity .25s ease;
+      transition:background .25s ease;
+      z-index:2;
     }
-    .btn.primary{
-      background:var(--hrd-blue);
-      color:#fff;
-      box-shadow:0 8px 30px rgba(0,112,184,.38);
+    .play-btn:hover{ background:rgba(0,0,0,.35); }
+
+    .play-circle{
+      width:88px;height:88px;border-radius:999px;
+      background:rgba(255,255,255,.12);
+      display:grid;place-items:center;
+      backdrop-filter: blur(6px);
+      border:1px solid rgba(255,255,255,.25);
+      box-shadow:0 10px 35px rgba(0,0,0,.45);
+      transition:transform .2s ease;
     }
-    .btn.primary:hover{
-      transform:translateY(-2px) scale(1.03);
-      opacity:.98;
+    .play-btn:hover .play-circle{ transform:scale(1.06); }
+
+    .play-triangle{
+      width:0;height:0;
+      border-top:14px solid transparent;
+      border-bottom:14px solid transparent;
+      border-left:22px solid white;
+      margin-left:4px;
     }
 
     .section{
@@ -101,29 +112,33 @@
       text-align:center;
       box-shadow:0 10px 28px rgba(0,0,0,.18);
     }
-    .icon-card h4{margin:.2rem 0 .4rem;color:#fff;}
+    .icon-card h4{
+      margin:.2rem 0 .4rem;color:#fff;
+      text-transform:uppercase; /* ✅ Uppercase content */
+      letter-spacing:.04em;
+    }
     .icon-card p{color:rgba(226,232,240,.75);}
     .icon-card:hover{
       transform:translateY(-5px);
       box-shadow:0 16px 40px rgba(0,0,0,.32);
     }
 
-    /* ✅ BIGGER + PROPER FEATURED PARTNERS */
+    /* ✅ Bigger Featured Retail Partners boxes */
     .logo-card-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:2rem;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); /* bigger min */
+      gap:2.2rem;
       justify-items:center;
-      padding:1.8rem 0 .5rem;
+      padding:2.2rem 0 .5rem;
       margin-top:.5rem;
     }
     .logo-card{
       background:rgba(3,7,18,0.40);
       border:1px solid rgba(255,255,255,0.06);
       border-radius:22px;
-      padding:1.4rem;
+      padding:1.6rem;
       width:100%;
-      max-width:360px;   /* bigger cards */
+      max-width:420px;   /* ✅ bigger cards */
       text-align:center;
       text-decoration:none;
       color:#fff;
@@ -151,7 +166,7 @@
       justify-content:center;
       align-items:center;
       width:100%;
-      height:180px;          /* natural tall card area */
+      height:220px;          /* ✅ taller */
       border-radius:18px;
       overflow:hidden;
       background:rgba(255,255,255,0.02);
@@ -160,7 +175,7 @@
     .logo-placeholder img{
       width:100%;
       height:100%;
-      object-fit:cover;      /* fills naturally */
+      object-fit:cover;
       border-radius:18px;
       transition:transform .35s ease, opacity .35s ease;
       opacity:.97;
@@ -222,9 +237,9 @@
     }
     @media(max-width:540px){
       .hrd-form{padding:1.2rem;}
-      .btn.primary{width:100%;text-align:center;}
       .logo-card{max-width:100%;}
-      .logo-placeholder{height:160px;}
+      .logo-placeholder{height:190px;}
+      .play-circle{width:70px;height:70px;}
     }
   </style>
 </head>
@@ -242,12 +257,21 @@
         <p class="eyebrow">Point of Trust Program</p>
         <h2 class="hero-title">Join the network consumers trust.</h2>
         <p class="hero-text">Be seen as a verified, certification-aligned jeweller. Build credibility through HRD Antwerp.</p>
-        <a href="#retailer-form" class="btn primary" id="applyNowBtn">
-          Apply to become a Point of Trust retailer
-        </a>
+        <!-- ✅ Removed Apply button -->
       </div>
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/fYO_KA-LDeg" title="A Quiet Kind of Trust" frameborder="0" allowfullscreen></iframe>
+
+      <div class="video-wrapper" id="videoBox">
+        <div class="play-btn" id="playBtn">
+          <div class="play-circle">
+            <div class="play-triangle"></div>
+          </div>
+        </div>
+        <iframe id="heroVideo"
+          src="https://www.youtube.com/embed/fYO_KA-LDeg"
+          title="A Quiet Kind of Trust"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
       </div>
     </div>
   </section>
@@ -264,7 +288,8 @@
 
   <section class="section">
     <div class="container">
-      <h3 class="section-title">Why join the PoT program</h3>
+      <!-- ✅ Added ? mark -->
+      <h3 class="section-title">Why join the PoT program?</h3>
       <div class="icon-grid">
         <div class="icon-card">
           <h4>Visibility</h4>
@@ -285,30 +310,28 @@
   <section class="section">
     <div class="container">
       <h3 class="section-title">Featured Retail Partners</h3>
-      <p style="color:rgba(226,232,240,.65);text-align:center;margin-bottom:.5rem;">
-        Discover certified jewellers you can trust.
-      </p>
 
       <div class="logo-card-grid">
-        <a href="https://www.instagram.com/khannajewellerskj?igsh=MW81eWQ2Y3VzdWljNQ==" target="_blank" class="logo-card">
+        <!-- ✅ Updated links to Drive -->
+        <a href="https://drive.google.com/file/d/1c0Q8S0VA3NuewGkoqDSu2Hi_QnE1LF3C/view?usp=drive_link" target="_blank" class="logo-card">
           <div class="logo-placeholder">
             <img src="client-logos/Khanna Jewellers.png" alt="Khanna Jewellers">
           </div>
         </a>
 
-        <a href="https://www.instagram.com/bishanjewellery?igsh=dHVvYnJtaTVhenhs" target="_blank" class="logo-card">
+        <a href="https://drive.google.com/file/d/1-Ion7wTe0-kAPJKyk-XxjYEisXE7ZzgB/view?usp=drive_link" target="_blank" class="logo-card">
           <div class="logo-placeholder">
             <img src="client-logos/Bishan.png" alt="Bishan">
           </div>
         </a>
 
-        <a href="https://www.instagram.com/multanijewellersofficial?igsh=Z3ZzaXNrYmtxdW40" target="_blank" class="logo-card">
+        <a href="https://drive.google.com/file/d/1VEsJPebFHitE-KTaMwiEcE5nv4eogm6c/view?usp=drive_link" target="_blank" class="logo-card">
           <div class="logo-placeholder">
             <img src="client-logos/Multani Jewellers.png" alt="Multani Jewellers">
           </div>
         </a>
 
-        <a href="https://www.instagram.com/rkjewellers_southex2?igsh=amplbmdwOW1jZW9j" target="_blank" class="logo-card">
+        <a href="https://drive.google.com/file/d/1yf0LH4jYkGTVfYPb5Spv3Z5gywWnVlUJ/view?usp=drive_link" target="_blank" class="logo-card">
           <div class="logo-placeholder">
             <img src="client-logos/RK Jewellers.png" alt="RK Jewellers">
           </div>
@@ -366,17 +389,27 @@
     <a href="consumer-landing.html">Looking to buy jewellery? Visit our guide.</a>
   </footer>
 
-  <!-- ✅ JS fallback + offset fix for sticky header -->
   <script>
+    // Smooth scroll offset for sticky header
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const target = document.querySelector(this.getAttribute('href'));
         if (!target) return;
         e.preventDefault();
-        const yOffset = -80; // sticky header offset
+        const yOffset = -80;
         const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
       });
+    });
+
+    // Play button -> autoplay YouTube + hide overlay
+    const playBtn = document.getElementById("playBtn");
+    const heroVideo = document.getElementById("heroVideo");
+
+    playBtn.addEventListener("click", () => {
+      const baseSrc = heroVideo.getAttribute("src");
+      heroVideo.setAttribute("src", baseSrc + "?autoplay=1");
+      playBtn.style.display = "none";
     });
   </script>
 </body>
