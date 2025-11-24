@@ -241,7 +241,7 @@
       font-size:1.28rem;
       font-weight:800;
       letter-spacing:.01em;
-      text-transform:uppercase; /* ✅ make content uppercase */
+      text-transform:uppercase;
     }
     .icon-card p{
       margin:0;
@@ -392,7 +392,7 @@
         </div>
       </div>
 
-      <!-- ✅ Right-side video (same spot, but popup on play) -->
+      <!-- ✅ Right-side video (same spot, popup on play) -->
       <div class="video-wrapper">
         <img
           class="video-thumb"
@@ -534,23 +534,31 @@
     const VIDEO_URL = "https://www.youtube.com/embed/fYO_KA-LDeg?autoplay=1";
 
     function openModal(){
+      if(!modal || !frame) return;
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       frame.src = VIDEO_URL;
       document.body.style.overflow = "hidden";
     }
     function closeModal(){
+      if(!modal || !frame) return;
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       frame.src = "";
       document.body.style.overflow = "";
     }
 
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    if(openBtn) openBtn.addEventListener('click', openModal);
+    if(closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    if(modal){
+      modal.addEventListener('click', (e)=>{
+        if(e.target === modal) closeModal();
+      });
+    }
+
     document.addEventListener('keydown', (e)=>{
-      if(e.key === "Escape" && modal.classList.contains('open')) closeModal();
+      if(e.key === "Escape" && modal && modal.classList.contains('open')) closeModal();
     });
 
     // smooth scroll offset for sticky header
