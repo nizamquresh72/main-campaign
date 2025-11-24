@@ -34,7 +34,7 @@
     .top-tagline{font-size:.9rem;color:rgba(255,255,255,.6);margin:0;}
 
     /* =========================
-       ✅ HERO (same layout)
+       ✅ HERO (banner + play button ONLY)
        ========================= */
     .hero {
       position: relative;
@@ -66,10 +66,7 @@
       z-index: 2;
       width: min(1100px, 92%);
       padding: 3.4rem 0;
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;  /* ✅ text left, video right */
-      gap:2rem;
-      align-items:center;
+      display:block;
     }
 
     .hero-left{
@@ -127,49 +124,36 @@
     }
 
     /* =========================
-       ✅ VIDEO THUMB + PLAY OVERLAY
+       ✅ HERO PLAY BUTTON (over banner)
        ========================= */
-    .video-wrapper{
-      position:relative;
-      padding-top:56.25%;
-      border-radius:18px;
-      overflow:hidden;
-      background:rgba(226,232,240,.09);
-      box-shadow:0 20px 55px rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.04);
-      animation:fadeInUp .8s ease .3s both;
-    }
-    .video-thumb{
-      position:absolute; inset:0;
-      width:100%; height:100%;
-      object-fit:cover;
-    }
-    .thumb-play-btn{
-      position:absolute; inset:0;
-      display:grid; place-items:center;
-      background:rgba(0,0,0,.25);
-      border:0; cursor:pointer;
-      transition:background .25s ease;
-    }
-    .thumb-play-btn:hover{ background:rgba(0,0,0,.35); }
-
-    .thumb-play-circle{
-      width:88px;height:88px;border-radius:999px;
+    .hero-play-btn{
+      position:absolute;
+      top:55%;
+      left:60%;
+      transform:translate(-50%,-50%);
+      width:120px;
+      height:120px;
+      border-radius:999px;
       background:rgba(255,255,255,.12);
-      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.28);
       backdrop-filter: blur(6px);
-      border:1px solid rgba(255,255,255,.25);
-      box-shadow:0 10px 35px rgba(0,0,0,.45);
-      transition:transform .2s ease;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      z-index:3;
+      box-shadow:0 12px 45px rgba(0,0,0,.55);
+      transition:transform .2s ease, background .2s ease;
     }
-    .thumb-play-btn:hover .thumb-play-circle{ transform:scale(1.06); }
-
-    .thumb-play-triangle{
+    .hero-play-btn:hover{
+      transform:translate(-50%,-50%) scale(1.06);
+      background:rgba(255,255,255,.18);
+    }
+    .hero-play-triangle{
       width:0;height:0;
-      border-top:14px solid transparent;
-      border-bottom:14px solid transparent;
-      border-left:22px solid white;
-      margin-left:4px;
+      border-top:18px solid transparent;
+      border-bottom:18px solid transparent;
+      border-left:28px solid #fff;
+      margin-left:6px;
     }
 
     /* =========================
@@ -355,15 +339,46 @@
     @keyframes fadeInUp{from{opacity:0;transform:translateY(25px);}to{opacity:1;transform:translateY(0);}}
     @keyframes fadeInDown{from{opacity:0;transform:translateY(-25px);}to{opacity:1;transform:translateY(0);}}
 
-    @media(max-width:940px){
-      .hero-content{grid-template-columns:1fr;}
-      .hero-left{max-width:820px;text-align:center;margin:0 auto;}
+    /* =========================
+       ✅ FINAL MOBILE FIXES
+       ========================= */
+    @media (max-width: 940px){
+      .hero-left{
+        max-width:820px;
+        text-align:center;
+        margin:0 auto;
+      }
       .hero-actions{align-items:center;}
+
+      /* create space for play button */
+      .hero{
+        padding-bottom:7rem;
+      }
+
+      /* move play button BELOW text */
+      .hero-play-btn{
+        top:auto !important;
+        bottom:18% !important;
+        left:50% !important;
+        transform:translateX(-50%);
+      }
     }
-    @media(max-width:540px){
+
+    @media (max-width: 540px){
       .hrd-form{padding:1.2rem;}
       .btn{width:100%;text-align:center;}
-      .thumb-play-circle{width:70px;height:70px;}
+
+      .hero-play-btn{
+        bottom:12% !important;
+        width:90px !important;
+        height:90px !important;
+      }
+
+      .hero-play-triangle{
+        border-top:14px solid transparent !important;
+        border-bottom:14px solid transparent !important;
+        border-left:22px solid #fff !important;
+      }
     }
   </style>
 </head>
@@ -375,8 +390,12 @@
     </div>
   </header>
 
-  <!-- ✅ HERO with thumbnail + popup -->
+  <!-- ✅ HERO banner + play button -->
   <section class="hero">
+    <button class="hero-play-btn" id="openVideo" aria-label="Play video">
+      <span class="hero-play-triangle"></span>
+    </button>
+
     <div class="hero-content">
       <div class="hero-left">
         <p class="eyebrow">Point of Trust Program</p>
@@ -386,24 +405,8 @@
         </p>
 
         <div class="hero-actions">
-          <a href="#retailer-form" class="btn download" id="applyNowBtn">
-            Apply to become a Point of Trust retailer
-          </a>
+          <!-- CTA removed as per your comment -->
         </div>
-      </div>
-
-      <!-- ✅ Right-side video (same spot, popup on play) -->
-      <div class="video-wrapper">
-        <img
-          class="video-thumb"
-          src="https://img.youtube.com/vi/fYO_KA-LDeg/maxresdefault.jpg"
-          alt="A Quiet Kind of Trust thumbnail"
-        />
-        <button class="thumb-play-btn" id="openVideo" aria-label="Play video">
-          <span class="thumb-play-circle">
-            <span class="thumb-play-triangle"></span>
-          </span>
-        </button>
       </div>
     </div>
   </section>
@@ -431,7 +434,6 @@
   <section class="section">
     <div class="container">
       <h3 class="section-title">Featured Retail Partners</h3>
-
       <div class="logo-card-grid">
         <a href="https://drive.google.com/file/d/1c0Q8S0VA3NuewGkoqDSu2Hi_QnE1LF3C/view?usp=drive_link" target="_blank" class="logo-card">
           <div class="logo-placeholder">
@@ -534,31 +536,23 @@
     const VIDEO_URL = "https://www.youtube.com/embed/fYO_KA-LDeg?autoplay=1";
 
     function openModal(){
-      if(!modal || !frame) return;
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       frame.src = VIDEO_URL;
       document.body.style.overflow = "hidden";
     }
     function closeModal(){
-      if(!modal || !frame) return;
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       frame.src = "";
       document.body.style.overflow = "";
     }
 
-    if(openBtn) openBtn.addEventListener('click', openModal);
-    if(closeBtn) closeBtn.addEventListener('click', closeModal);
-
-    if(modal){
-      modal.addEventListener('click', (e)=>{
-        if(e.target === modal) closeModal();
-      });
-    }
-
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
     document.addEventListener('keydown', (e)=>{
-      if(e.key === "Escape" && modal && modal.classList.contains('open')) closeModal();
+      if(e.key === "Escape" && modal.classList.contains('open')) closeModal();
     });
 
     // smooth scroll offset for sticky header
